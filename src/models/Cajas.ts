@@ -1,15 +1,27 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { Facturas } from "./Facturas"
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  OneToMany,
+  BaseEntity,
+} from "typeorm";
+import { Facturas } from "./Facturas";
 @Entity()
-export class Cajas {
+export class Cajas extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  numero: number;
 
-    @PrimaryGeneratedColumn()
-    numero: number
+  @Column("varchar", { length: 12, nullable: false })
+  password: string;
 
-    @Column("varchar", { length: 4 })
-    password: string
+  @OneToMany(() => Facturas, (facturas) => facturas.caja)
+  facturas: Facturas[];
 
-    @OneToMany(()=>Facturas,(facturas)=> facturas.caja)
-    facturas: Facturas[]
+  @CreateDateColumn()
+  createdAt: Date;
 
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

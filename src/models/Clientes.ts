@@ -1,23 +1,37 @@
-import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  OneToMany,
+  CreateDateColumn,
+  UpdateDateColumn,
+  BaseEntity,
+} from "typeorm";
 import { Facturas } from "./Facturas";
 
 @Entity()
-export class Clientes {
+export class Clientes extends BaseEntity{
   @PrimaryColumn()
   cedula: number;
 
-  @Column("varchar", { length: 20 })
+  @Column("varchar", { length: 20, nullable: false })
   nombre: string;
 
-  @Column("varchar", { length: 20 })
+  @Column("varchar", { length: 20, nullable: false })
   apellido: string;
 
-  @Column("varchar", { length: 100 })
+  @Column("varchar", { length: 100, nullable: false })
   direccion: string;
 
-  @Column()
+  @Column("varchar", { length: 12, nullable: false })
   telefono: string;
 
   @OneToMany(() => Facturas, (facturas) => facturas.cliente)
   facturas: Facturas[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }

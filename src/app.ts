@@ -1,7 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import indexRoutes from "./routes";
+import indexRoutes from "./routes/index";
+import userRouter from "./routes/user"
 
 const app = express();
 
@@ -12,5 +13,6 @@ app.use(express.urlencoded({ extended: false }));
 
 
 app.use("/", indexRoutes);
+app.use("/user", userRouter);
 
 export default app;

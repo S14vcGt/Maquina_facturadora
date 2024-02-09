@@ -14,9 +14,9 @@ export const AppDataSource = new DataSource({
   username: DB_USERNAME,
   password: DB_PASSWORD,
   database: DB_DATABASE,
-  synchronize: NODE_ENV === "dev" ? false : false,
+  synchronize: NODE_ENV === "dev" ? true : false,
   //logging logs sql command on the treminal
-  logging: NODE_ENV === "dev" ? false : false,
+  logging: NODE_ENV === "dev" ? true : false,
   entities: ["src/models/*.ts"],
   migrations: [__dirname + "/migration/*.ts"],
   subscribers: [],

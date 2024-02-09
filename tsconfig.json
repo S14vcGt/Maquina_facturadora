@@ -4,10 +4,10 @@
          "es5",
          "es6"
       ],
-      "target": "es5",
+      "target": "es6",
       "module": "commonjs",
       "moduleResolution": "node",
-      //"outDir": "./build",
+      //"outDir": "./dist",
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "sourceMap": true,
@@ -19,6 +19,7 @@
       "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
       "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
       "skipLibCheck": true,                             /* Skip type checking all .d.ts files. */
-      "strictPropertyInitialization": false             /*Permite dejar las clases sin inicializar*/
+      "strictPropertyInitialization": false,            /*Permite dejar las clases sin inicializar*/
+      //"rootDir": "./src"
    }
 }

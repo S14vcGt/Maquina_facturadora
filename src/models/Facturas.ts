@@ -1,22 +1,22 @@
 import {
   Entity,
   PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
   Column,
   ManyToOne,
   OneToMany,
+  BaseEntity,
 } from "typeorm";
 import { Clientes } from "./Clientes";
 import { Cajas } from "./Cajas";
 import { listan } from "./listan";
 @Entity()
-export class Facturas {
+export class Facturas extends BaseEntity {
   @PrimaryGeneratedColumn()
   numero: number;
 
-  @Column()
-  fecha: Date;
-
-  @Column()
+  @Column({ nullable: false })
   monto_total: number;
 
   @Column("varchar", { length: 100 })
@@ -30,4 +30,10 @@ export class Facturas {
 
   @OneToMany(() => listan, (listan) => listan.factura)
   public listan: listan[];
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
