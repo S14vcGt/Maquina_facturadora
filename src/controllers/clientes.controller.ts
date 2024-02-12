@@ -17,15 +17,11 @@ export class ClientesController {
   }
 
   static async searchCliente(req: Request, res: Response) {
-    if (req.params.cedula){//!eliminar antes de entregar
-      console.log("textualmente es "+req.params.cedula)
-      const cliente = await AppDataSource.getRepository(Clientes).findOneBy({
-        cedula: parseInt(req.params.cedula),
-      });
-      return res.json(cliente);
-    }else{
-      return res.sendStatus(404).json({"mensaje":"no lee la variable"})
-    }
+    console.log("textualmente es " + req.params.cedula);
+    const cliente = await AppDataSource.getRepository(Clientes).findOneBy({
+      cedula: parseInt(req.params.cedula),
+    });
+    return res.json(cliente);
   }
 
   static async updateCliente(req: Request, res: Response) {
@@ -42,7 +38,7 @@ export class ClientesController {
   }
 
   static async deleteCliente(req: Request, res: Response) {
-    const cliente = await AppDataSource.getRepository(Clientes).delete(
+    const cliente = await AppDataSource.getRepository(Clientes).softDelete(
       parseInt(req.params.cedula)
     );
     return res.send(cliente);

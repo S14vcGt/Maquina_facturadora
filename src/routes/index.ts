@@ -8,11 +8,11 @@ router.get("/", (_req: Request, res: Response) => {
   res.send("loggin");
 });
 
-router.get("/pip", (_req: Request, res:Response) => {
+router.post("/hi", (_req: Request, res:Response) => {
   res.send('hi')
 });
 
-router.get("/userAdmin", async(_req: Request, res: Response) => {
+router.get("/hello", async(_req: Request, res: Response) => {
     const users = await AppDataSource.getRepository(User).find();
     res.json(users);
   ;

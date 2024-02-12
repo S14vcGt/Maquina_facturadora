@@ -4,3 +4,5 @@ node_modules/
 tmp/
 temp/
 dist/
+.lsp/
+.clj-kondo/

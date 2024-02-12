@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
   BaseEntity,
+  DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
 @Entity()
@@ -24,4 +25,7 @@ export class Cajas extends BaseEntity {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
