@@ -15,8 +15,8 @@ export class CajasController {
   }
 
   static async searchCajas(req: Request, res: Response) {
-    const caja = await AppDataSource.getRepository(Cajas).findOneBy({
-      numero: parseInt(req.params.numero),
+    const caja = await AppDataSource.getRepository(Cajas).find({
+      where:{numero: parseInt(req.params.numero)}, withDeleted: true 
     });
     return res.json(caja);
   }
