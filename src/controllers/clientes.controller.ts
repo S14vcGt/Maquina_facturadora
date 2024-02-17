@@ -17,7 +17,6 @@ export class ClientesController {
   }
 
   static async searchCliente(req: Request, res: Response) {
-    console.log("textualmente es " + req.params.cedula);
     const cliente = await AppDataSource.getRepository(Clientes).find({
       where:{cedula: parseInt(req.params.cedula)},withDeleted: true 
     });
