@@ -3,13 +3,12 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  BaseEntity,
 } from "typeorm";
 import { Facturas } from "./Facturas";
 import { Productos } from "./Productos";
 
 @Entity()
-export class listan extends BaseEntity {
+export class listan {
   @PrimaryGeneratedColumn()
   id: number;
 

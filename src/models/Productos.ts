@@ -5,12 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  BaseEntity,
   DeleteDateColumn,
 } from "typeorm";
 import { listan } from "./listan";
 @Entity()
-export class Productos extends BaseEntity {
+export class Productos  {
   @PrimaryColumn()
   codigo: number;
 

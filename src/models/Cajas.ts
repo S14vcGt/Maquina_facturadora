@@ -5,12 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  BaseEntity,
   DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
 @Entity()
-export class Cajas extends BaseEntity {
+export class Cajas {
   @PrimaryGeneratedColumn()
   numero: number;
 

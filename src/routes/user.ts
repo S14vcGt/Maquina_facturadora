@@ -9,12 +9,9 @@ userRouter.get("/", (_req: Request, res: Response) => {
 }); //?sera que uso el all y hago todo ahi directamente?
 
 userRouter.post("/cliente", ClientesController.createCliente);
-userRouter.get("/cliente/:cedula",ClientesController.searchCliente)
-userRouter.get("/cliente",ClientesController.loadClientes)
-userRouter.put("/cliente/:cedula", ClientesController.updateCliente)
-userRouter.delete("/cliente/:cedula",ClientesController.deleteCliente)
+userRouter.get("/cliente/:cedula", ClientesController.searchCliente);
 
-userRouter.post("/factura",FacturasController.createFactura);
-userRouter.get("/factura",FacturasController.loadFacturas)
+userRouter.post("/factura", FacturasController.createFactura);
+userRouter.get("/factura/:numero", FacturasController.searchFactura);
 
 export default userRouter;

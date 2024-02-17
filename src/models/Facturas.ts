@@ -6,14 +6,13 @@ import {
   Column,
   ManyToOne,
   OneToMany,
-  BaseEntity,
   DeleteDateColumn,
 } from "typeorm";
 import { Clientes } from "./Clientes";
 import { Cajas } from "./Cajas";
 import { listan } from "./listan";
 @Entity()
-export class Facturas extends BaseEntity {
+export class Facturas {
   @PrimaryGeneratedColumn()
   numero: number;
 

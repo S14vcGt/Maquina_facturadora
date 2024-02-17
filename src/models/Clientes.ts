@@ -5,12 +5,12 @@ import {
   OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
-  BaseEntity,
+  DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
 
 @Entity()
-export class Clientes extends BaseEntity{
+export class Clientes  {
   @PrimaryColumn()
   cedula: number;
 
@@ -34,4 +34,7 @@ export class Clientes extends BaseEntity{
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 }
