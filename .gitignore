@@ -6,3 +6,4 @@ temp/
 dist/
 .lsp/
 .clj-kondo/
+.env

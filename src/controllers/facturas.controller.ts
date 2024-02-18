@@ -5,6 +5,7 @@ import { Cajas } from "../models/Cajas";
 import { Clientes } from "../models/Clientes";
 import { Productos } from "../models/Productos";
 import { listan } from "../models/listan";
+import { FacturasResponse } from "../dtos/facturas.dto";
 //*find entrega un arreglo que puede estar
 //*vacio, mientras que findOneBy entrega el objeto o null
 //* para evitar problemas de compilacion, referencio el arreglo y listo,la validacion de la
@@ -45,7 +46,10 @@ export class FacturasController {
 
   static async loadFacturas(_req: Request, res: Response) {
     const facturas = await AppDataSource.getRepository(Facturas).find();
-    return res.json(facturas);
+    const result = facturas.map((factura: Facturas) => {
+      return new FacturasResponse(factura);
+    });
+    return res.json(result);
   }
 
   static async searchFactura(req: Request, res: Response) {
@@ -53,7 +57,11 @@ export class FacturasController {
       where: { numero: parseInt(req.params.numero) },
       withDeleted: true,
     });
-    return res.json(factura);
+    if (factura.length > 0) {
+      return res.json(new FacturasResponse(factura[0]));
+    } else {
+      return res.status(404).json({ message: "No existe tal factura " });
+    }
   }
 
   static async updateFactura(req: Request, res: Response) {
@@ -74,5 +82,12 @@ export class FacturasController {
       parseInt(req.params.numero)
     );
     return res.send(factura);
+  }
+
+  static async restoreFactura(req: Request, res: Response) {
+    const result = await AppDataSource.getRepository(Facturas).restore(
+      parseInt(req.params.numero)
+    );
+    res.send(result);
   }
 }
