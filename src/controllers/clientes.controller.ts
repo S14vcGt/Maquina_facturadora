@@ -2,18 +2,34 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Clientes } from "../models/Clientes";
 import { ClientesResponse } from "../dtos/clientes.dto";
+import { instanceToPlain, plainToInstance } from "class-transformer";
+import { validateOrReject } from "class-validator";
 
 export class ClientesController {
   static async createCliente(req: Request, res: Response) {
-    const cliente = AppDataSource.getRepository(Clientes).create(req.body);
-    const result = await AppDataSource.getRepository(Clientes).save(cliente);
-    return res.send(result);
+    let clienteDto: ClientesResponse = plainToInstance(
+      ClientesResponse,
+      req.body
+    );
+    try {
+      await validateOrReject(clienteDto);
+      const cliente = await AppDataSource.getRepository(Clientes).create(
+        clienteDto
+      );
+      const result = await AppDataSource.getRepository(Clientes).save(cliente);
+      return res.status(201).json(result);
+    } catch (errors) {
+      return res.status(422).json(errors);
+    }
   }
 
   static async loadClientes(_req: Request, res: Response) {
     const clientes = await AppDataSource.getRepository(Clientes).find();
     const result = clientes.map((client) => {
-      return new ClientesResponse(client);
+      let aux = instanceToPlain(client);
+      return plainToInstance(ClientesResponse, aux, {
+        excludeExtraneousValues: true,
+      });
     });
     return res.json(result);
   }
@@ -24,7 +40,12 @@ export class ClientesController {
       withDeleted: true,
     });
     if (cliente.length > 0) {
-      return res.json(new ClientesResponse(cliente[0]));
+      let aux = instanceToPlain(cliente[0]);
+      return res.json(
+        plainToInstance(ClientesResponse, aux, {
+          excludeExtraneousValues: true,
+        })
+      );
     } else {
       return res.status(404).json({ message: "No existe tal cliente" });
     }
@@ -37,9 +58,17 @@ export class ClientesController {
     if (!cliente) {
       return res.status(404).json({ message: "No existe tal cliente" });
     } else {
-      AppDataSource.getRepository(Clientes).merge(cliente, req.body);
-      const result = await AppDataSource.getRepository(Clientes).save(cliente);
-      return res.json(result);
+      try {
+        let aux = plainToInstance(ClientesResponse, req.body);
+        await validateOrReject(aux);
+        AppDataSource.getRepository(Clientes).merge(cliente, aux);
+        const result = await AppDataSource.getRepository(Clientes).save(
+          cliente
+        );
+        return res.json(result);
+      } catch (errors) {
+        return res.status(422).json(errors);
+      }
     }
   }
 

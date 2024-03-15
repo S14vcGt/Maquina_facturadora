@@ -1,6 +1,6 @@
 import {
   Entity,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   Column,
   CreateDateColumn,
   UpdateDateColumn,
@@ -9,17 +9,20 @@ import {
 } from "typeorm";
 import { listan } from "./listan";
 @Entity()
-export class Productos  {
-  @PrimaryColumn()
-  codigo: number;
+export class Productos {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column({ unique: true, nullable: false })
+  codigo: string;
 
   @Column({ type: "float", nullable: false })
   precio: number;
 
-  @Column("varchar", { length: 20, nullable: false })
+  @Column("varchar", { nullable: false })
   nombre: string;
 
-  @OneToMany(() => listan, (listan) => listan.producto)
+  @OneToMany(() => listan, (listan) => listan.producto, { onUpdate: "CASCADE" })
   public listan: listan[];
 
   @CreateDateColumn()

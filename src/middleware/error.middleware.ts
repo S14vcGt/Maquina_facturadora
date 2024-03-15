@@ -1,11 +1,25 @@
 import { NextFunction, Request, Response } from "express";
 
-export const errorHandler = (
-  error: Error,
+const errorHandler = (
+  err: Error,
   _req: Request,
   res: Response,
-  _reqnext: NextFunction
+  _next: NextFunction
 ) => {
-  console.error(`Error: ${error.message}`);
-  return res.status(500).json({ message: "Internal server error" });
+  console.error(err.stack);
+
+  if (err instanceof AuthenticationError) {
+    res.status(401).json({ message: "Unauthorized: " + err.message });
+  } else {
+    res.status(500).json({ message: "Internal Server Error" });
+  }
 };
+
+class AuthenticationError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "AuthenticationError";
+  }
+}
+
+export { errorHandler, AuthenticationError };

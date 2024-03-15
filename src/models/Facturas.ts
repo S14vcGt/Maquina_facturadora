@@ -7,13 +7,18 @@ import {
   ManyToOne,
   OneToMany,
   DeleteDateColumn,
+  Generated,
 } from "typeorm";
 import { Clientes } from "./Clientes";
-import { Cajas } from "./Cajas";
+import { Users } from "./Users";
 import { listan } from "./listan";
 @Entity()
 export class Facturas {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column()
+  @Generated()
   numero: number;
 
   @Column({ type: "float", nullable: false })
@@ -25,8 +30,8 @@ export class Facturas {
   @ManyToOne(() => Clientes, (cliente) => cliente.facturas, { eager: true })
   cliente: Clientes;
 
-  @ManyToOne(() => Cajas, (caja) => caja.facturas, { eager: true })
-  caja: Cajas;
+  @ManyToOne(() => Users, (caja) => caja.facturas, { eager: true })
+  caja: Users;
 
   @OneToMany(() => listan, (listan) => listan.factura, { eager: true })
   public listan: listan[];

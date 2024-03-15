@@ -1,3 +1,4 @@
+import { instanceToPlain, plainToInstance } from "class-transformer";
 import { listan } from "../models/listan";
 import { ProductosResponse } from "./productos.dto";
 
@@ -7,6 +8,9 @@ export class listanResponse {
 
   constructor(listan: listan) {
     this.cantidad = listan.cantidad;
-    this.producto = new ProductosResponse(listan.producto);
+    let aux = instanceToPlain(listan.producto);
+    this.producto = plainToInstance(ProductosResponse, aux, {
+      excludeExtraneousValues: true,
+    });
   }
 }

@@ -2,34 +2,38 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToMany,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
   DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
+import { audit } from "./audit";
 
 @Entity()
-export class Clientes {
+export class Users {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ unique: true, nullable: false })
-  cedula: number;
+  @Column({ nullable: false })
+  numero: number;
 
   @Column("varchar", { nullable: false })
-  nombre: string;
+  _password: string;
 
-  @Column("varchar", { nullable: false })
-  apellido: string;
+  @Column({ type: Boolean })
+  caja: boolean;
 
-  @Column("varchar", { nullable: false })
-  direccion: string;
+  @Column({ type: Boolean })
+  admin: boolean;
 
-  @Column("varchar", { nullable: false })
-  telefono: string;
+  @Column({ type: Boolean })
+  superAdmin: boolean;
 
-  @OneToMany(() => Facturas, (facturas) => facturas.cliente, {
+  @OneToMany(() => audit, (audit) => audit.user)
+  operaciones: audit[];
+
+  @OneToMany(() => Facturas, (facturas) => facturas.caja, {
     onUpdate: "CASCADE",
   })
   facturas: Facturas[];

@@ -1,9 +1,4 @@
-import {
-  ManyToOne,
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { ManyToOne, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { Facturas } from "./Facturas";
 import { Productos } from "./Productos";
 

@@ -2,31 +2,49 @@ import { Request, Response } from "express";
 import { AppDataSource } from "../data-source";
 import { Productos } from "../models/Productos";
 import { ProductosResponse } from "../dtos/productos.dto";
+import { plainToInstance, instanceToPlain } from "class-transformer";
+import { validateOrReject } from "class-validator";
 
 export class ProductosController {
   static async createProductos(req: Request, res: Response) {
-    const producto = await AppDataSource.getRepository(Productos).create(
-      req.body
-    );
-    const result = AppDataSource.getRepository(Productos).save(producto);
-    return res.send(result);
+    let productoDto = plainToInstance(ProductosResponse, req.body);
+    try {
+      await validateOrReject(productoDto);
+      const producto = await AppDataSource.getRepository(Productos).create(
+        productoDto
+      );
+      const result = await AppDataSource.getRepository(Productos).save(
+        producto
+      );
+      return res.status(201).json(result);
+    } catch (errors) {
+      return res.status(422).json(errors);
+    }
   }
 
   static async loadProductos(_req: Request, res: Response) {
     const productos = await AppDataSource.getRepository(Productos).find();
     const result = productos.map((producto: Productos) => {
-      return new ProductosResponse(producto, producto.codigo);
+      let aux = instanceToPlain(producto);
+      return plainToInstance(ProductosResponse, aux, {
+        excludeExtraneousValues: true,
+      });
     });
-    return res.json(result);
+    return res.status(200).json(result);
   }
 
   static async searchProducto(req: Request, res: Response) {
     const producto = await AppDataSource.getRepository(Productos).find({
-      where: { codigo: parseInt(req.params.codigo) },
+      where: { codigo: req.params.codigo },
       withDeleted: true,
     });
     if (producto.length > 0) {
-      return res.json(new ProductosResponse(producto[0], producto[0].codigo));
+      let aux = instanceToPlain(producto[0]);
+      return res.status(200).json(
+        plainToInstance(ProductosResponse, aux, {
+          excludeExtraneousValues: true,
+        })
+      );
     } else {
       return res.status(404).json({ message: "No existe tal producto" });
     }
@@ -34,16 +52,22 @@ export class ProductosController {
 
   static async updateProducto(req: Request, res: Response) {
     const producto = await AppDataSource.getRepository(Productos).findOneBy({
-      codigo: parseInt(req.params.codigo),
+      codigo: req.params.codigo,
     });
     if (!producto) {
       return res.status(404).json({ message: "No existe tal producto" });
     } else {
-      AppDataSource.getRepository(Productos).merge(producto, req.body);
-      const result = await AppDataSource.getRepository(Productos).save(
-        producto
-      );
-      return res.json(result);
+      try {
+        let aux = plainToInstance(ProductosResponse, req.body);
+        await validateOrReject(aux);
+        AppDataSource.getRepository(Productos).merge(producto, aux);
+        const result = await AppDataSource.getRepository(Productos).save(
+          producto
+        );
+        return res.status(200).json(result);
+      } catch (errors) {
+        return res.status(422).json(errors);
+      }
     }
   }
 
