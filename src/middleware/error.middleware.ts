@@ -9,9 +9,17 @@ const errorHandler = (
   console.error(err.stack);
 
   if (err instanceof AuthenticationError) {
-    res.status(401).json({ message: "Unauthorized: " + err.message });
+    res.status(401).json({
+      message: "Unauthorized: " + (err.message || "Invalid acces token"),
+    });
   } else {
-    res.status(500).json({ message: "Internal Server Error" });
+    if (err instanceof ResourceError) {
+      res.status(422).json({
+        message: "Unable to process request: " + (err.message || "Bad Request"),
+      });
+    } else {
+      res.status(500).json({ message: "Internal Server Error" });
+    }
   }
 };
 
@@ -22,4 +30,10 @@ class AuthenticationError extends Error {
   }
 }
 
-export { errorHandler, AuthenticationError };
+class ResourceError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ResourceError";
+  }
+}
+export { errorHandler, AuthenticationError, ResourceError };

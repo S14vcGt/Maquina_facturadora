@@ -44,4 +44,6 @@ export class Facturas {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  _name: string = "Facturas";
 }

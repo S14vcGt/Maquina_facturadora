@@ -4,20 +4,26 @@ import { Users } from "../models/Users";
 import { UserResponse } from "../dtos/user.dto";
 import { instanceToPlain, plainToInstance } from "class-transformer";
 import { validateOrReject } from "class-validator";
-//import { encrypt } from "../helpers/auth.helper";
+import { ResourceError } from "../middleware/error.middleware";
+import { Xor } from "../helpers/validation.helper";
+import { incremental } from "../helpers/incremental.helper";
+import { audited } from "./audit.controller";
 
 export class UsersController {
   static async createUser(req: Request, res: Response) {
     let userDto = plainToInstance(UserResponse, req.body);
     try {
       await validateOrReject(userDto);
-      //*userDto._password = encrypt(req.body._password);
-      const user = AppDataSource.getRepository(Users).create(userDto);
+      Xor(userDto);
+      const aux = await incremental(userDto);
+      const user = AppDataSource.getRepository(Users).create(aux);
       const result = await AppDataSource.getRepository(Users).save(user);
-
+      audited([aux, result], "INSERT", req.user?._id);
       return res.status(201).json(result);
-    } catch (errors) {
-      return res.status(422).json(errors);
+    } catch (errors: any) {
+      throw new ResourceError(
+        errors.message || errors.detail || JSON.stringify(errors[0].constraints)
+      );
     }
   }
 
@@ -25,11 +31,11 @@ export class UsersController {
     let user: Users[];
     if (req.query.caja === "true") {
       user = await AppDataSource.getRepository(Users).find({
-        where: { caja: true },
+        where: { esCaja: true },
       });
     } else {
       user = await AppDataSource.getRepository(Users).find({
-        where: { caja: false },
+        where: { esCaja: false },
       });
     }
     const result = user.map((user: Users) => {
@@ -43,8 +49,9 @@ export class UsersController {
   }
 
   static async searchCajas(req: Request, res: Response) {
+    const numero = req.query.numero?.toString() || "";
     const caja = await AppDataSource.getRepository(Users).find({
-      where: { numero: parseInt(req.params.numero), caja: true },
+      where: { numero: parseInt(numero), esCaja: true },
       withDeleted: true,
     });
     if (caja.length > 0) {
@@ -70,25 +77,55 @@ export class UsersController {
       try {
         await validateOrReject(userDto);
         AppDataSource.getRepository(Users).merge(user, userDto);
+        let aux = user;
         const result = await AppDataSource.getRepository(Users).save(user);
-        return res.json(result);
-      } catch (errors) {
-        return res.status(422).json(errors);
+        audited([aux, result], "INSERT", req.user?._id);
+        return res.status(200).json(result);
+      } catch (errors: any) {
+        throw new ResourceError(
+          errors.message ||
+            errors.detail ||
+            JSON.stringify(errors[0].constraints)
+        );
       }
     }
   }
 
   static async deleteUser(req: Request, res: Response) {
-    const caja = await AppDataSource.getRepository(Users).softDelete(
-      req.params.id
-    );
-    return res.send(caja);
+    const user = await AppDataSource.getRepository(Users).findOneBy({
+      id: req.params.id,
+    });
+    if (!user) {
+      return res.status(404).json({ message: "No existe tal usuario" });
+    } else {
+      const result = await AppDataSource.getRepository(Users).softDelete(
+        req.params.id
+      );
+      const user2 = await AppDataSource.getRepository(Users).find({
+        where: { id: req.params.id },
+        withDeleted: true,
+      });
+      await audited([user, user2[0]], "SOFT REMOVE", req.user?._id);
+      return res.json([user2, result]);
+    }
   }
 
   static async restoreUser(req: Request, res: Response) {
-    const result = await AppDataSource.getRepository(Users).restore(
-      req.params.id
-    );
-    return res.send(result);
+    const user = await AppDataSource.getRepository(Users).find({
+      where: { id: req.params.id },
+      withDeleted: true,
+    });
+    if (user.length === 0) {
+      return res.status(404).json({ message: "No existe tal usuarico" });
+    } else {
+      const result = await AppDataSource.getRepository(Users).restore(
+        req.params.id
+      );
+      const user2 = await AppDataSource.getRepository(Users).find({
+        where: { id: req.params.id },
+      });
+      await audited([user[0], user2[0]], "RESTORE", req.user?._id);
+      return res.json([user2, result]);
+    }
   }
 }

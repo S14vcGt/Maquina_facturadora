@@ -8,6 +8,7 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
+//import { audited } from "../helpers/audited.helper";
 
 @Entity()
 export class Clientes {
@@ -42,4 +43,6 @@ export class Clientes {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  _name: string = "Clientes";
 }

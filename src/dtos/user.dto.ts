@@ -1,14 +1,12 @@
 import { Expose } from "class-transformer";
-import { IsBoolean, IsDefined, IsInt, IsString, Length } from "class-validator";
+import { IsBoolean, IsDefined, IsString, Length } from "class-validator";
 
 export class UserResponse {
   @Expose()
   id: string | undefined;
 
   @Expose()
-  @IsDefined()
-  @IsInt()
-  numero: number;
+  numero: number | undefined;
 
   @Expose()
   @IsDefined()
@@ -19,7 +17,7 @@ export class UserResponse {
   @Expose()
   @IsDefined()
   @IsBoolean()
-  caja: boolean;
+  esCaja: boolean;
 
   @Expose()
   @IsDefined()

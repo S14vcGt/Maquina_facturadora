@@ -33,4 +33,6 @@ export class Productos {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  _name: string = "Productos";
 }

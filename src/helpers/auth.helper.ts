@@ -1,12 +1,9 @@
 import jwt from "jsonwebtoken";
 import { Response } from "express";
 import * as dotenv from "dotenv";
-import * as bcrypt from "bcryptjs";
 
 dotenv.config();
-const encrypt = (password: string) => {
-  return bcrypt.hashSync(password, 12);
-};
+
 const generateToken = (res: Response, userId: string) => {
   const { JWT_SECRET = " " } = process.env;
   const token = jwt.sign({ userId }, JWT_SECRET, {
@@ -28,4 +25,4 @@ const clearToken = (res: Response) => {
   });
 };
 
-export { generateToken, clearToken, encrypt };
+export { generateToken, clearToken };

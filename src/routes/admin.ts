@@ -4,29 +4,30 @@ import { FacturasController } from "../controllers/facturas.controller";
 import { ClientesController } from "../controllers/clientes.controller";
 import { UsersController } from "../controllers/user.controller";
 import { autorizacion } from "../middleware/autorizacion.middleware";
+import { showAudited } from "../controllers/audit.controller";
 
 const router = Router();
 
-router.get("/clientes/:cedula", ClientesController.searchCliente);
+router.get("/cliente", ClientesController.searchCliente);
 router.get("/clientes", ClientesController.loadClientes);
-router.put("/clientes/:cedula", ClientesController.updateCliente);
-router.delete("/clientes/:cedula", ClientesController.deleteCliente);
-router.patch("/clientes/:cedula", ClientesController.restoreCliente);
+router.put("/clientes/:id", ClientesController.updateCliente);
+router.delete("/clientes/:id", ClientesController.deleteCliente);
+router.patch("/clientes/:id", ClientesController.restoreCliente);
 
 router.post("/cajas", autorizacion(["superAdmin"]), UsersController.createUser);
-router.get("/cajas/:numero", UsersController.searchCajas);
+router.get("/caja", UsersController.searchCajas);
 router.get("/cajas", UsersController.loadUser);
 router.put(
-  "/cajas/:numero",
+  "/cajas/:id",
   autorizacion(["superAdmin"]),
   UsersController.updateUser
 );
 router.delete(
-  "/cajas/:numero",
+  "/cajas/:id",
   autorizacion(["superAdmin"]),
   UsersController.deleteUser
 );
-router.patch("/cajas/:numero", UsersController.restoreUser);
+router.patch("/cajas/:id", UsersController.restoreUser);
 
 router.get("/productos", ProductosController.loadProductos);
 router.post("/productos", ProductosController.createProductos);
@@ -38,17 +39,17 @@ router.patch("/productos/:codigo", ProductosController.restoreProducto);
 router.get("/facturas", FacturasController.loadFacturas);
 router.get("/facturas/:numero", FacturasController.searchFactura);
 router.put(
-  "/facturas/:numero",
+  "/facturas/:id",
   autorizacion(["superAdmin"]),
   FacturasController.updateFactura
 );
 router.delete(
-  "/facturas/:numero",
+  "/facturas/:id",
   autorizacion(["superAdmin"]),
   FacturasController.deleteFactura
 );
 router.patch(
-  "/facturas/:numero",
+  "/facturas/:id",
   autorizacion(["superAdmin"]),
   FacturasController.restoreFactura
 );
@@ -60,5 +61,7 @@ router.delete(
   autorizacion(["superAdmin"]),
   UsersController.deleteUser
 );
+
+router.get("/logs", autorizacion(["superAdmin"]), showAudited);
 
 export default router;

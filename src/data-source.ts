@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
-import * as dotenv from "dotenv"
+import * as dotenv from "dotenv";
 
 dotenv.config();
 
@@ -18,6 +18,6 @@ export const AppDataSource = new DataSource({
   //logging logs sql command on the treminal
   logging: NODE_ENV === "dev" ? true : false,
   entities: ["src/models/*.ts"],
-  migrations: [__dirname + "/migration/*.ts"],
+  migrations: [],
   subscribers: [],
 });

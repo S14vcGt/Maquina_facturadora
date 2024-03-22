@@ -5,9 +5,9 @@ import { FacturasController } from "../controllers/facturas.controller";
 const userRouter = Router();
 
 userRouter.post("/cliente", ClientesController.createCliente);
-userRouter.get("/clientes/:cedula", ClientesController.searchCliente);
-
+userRouter.get("/cliente", ClientesController.searchCliente);
+//?aqui se usan querys
 userRouter.post("/factura", FacturasController.createFactura);
-userRouter.get("/facturas/:numero", FacturasController.searchFactura);
+userRouter.get("/factura", FacturasController.searchFactura);
 
 export default userRouter;

@@ -6,11 +6,10 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Users } from "./Users";
-
 @Entity()
 export class audit {
   @PrimaryGeneratedColumn()
-  id: number;
+  number: number;
 
   @Column({ nullable: false })
   table: string;
@@ -18,8 +17,14 @@ export class audit {
   @Column({ nullable: false })
   action: string;
 
-  @ManyToOne(() => Users, (user) => user.operaciones)
-  user: Users | null;
+  @ManyToOne(() => Users, (user) => user.operaciones, { eager: true })
+  user: Users;
+
+  @Column("json")
+  before: any;
+
+  @Column("json")
+  after: any;
 
   @CreateDateColumn()
   createdAt: Date;

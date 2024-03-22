@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import "express-async-errors";
 import indexRoutes from "./routes/index";
 import cajaRouter from "./routes/caja";
 import adminRouter from "./routes/admin";
@@ -29,9 +30,9 @@ declare global {
   }
 }
 app.use("/", indexRoutes);
-app.use("/user", authenticate, autorizacion(["caja"]), cajaRouter);
+app.use("/caja", authenticate, autorizacion(["caja"]), cajaRouter);
 app.use(
-  "/userAdmin",
+  "/admin",
   authenticate,
   autorizacion(["superAdmin", "admin"]),
   adminRouter

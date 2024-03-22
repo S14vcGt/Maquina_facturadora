@@ -2,6 +2,8 @@ import { Expose } from "class-transformer";
 import { IsDefined, IsString, Length } from "class-validator";
 export class ClientesResponse {
   @Expose()
+  id: string | undefined;
+  @Expose()
   @IsDefined()
   @IsString()
   @Length(8, 9)

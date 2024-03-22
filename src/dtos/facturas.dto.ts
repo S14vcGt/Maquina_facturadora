@@ -5,6 +5,7 @@ import { listan } from "../models/listan";
 import { instanceToPlain, plainToInstance } from "class-transformer";
 
 export class FacturasResponse {
+  id: string;
   numero: number;
   monto_total: number;
   metodo_de_pago: string;
@@ -13,6 +14,7 @@ export class FacturasResponse {
   listan: listanResponse[];
 
   constructor(factura: Facturas) {
+    this.id = factura.id;
     this.numero = factura.numero;
     this.monto_total = factura.monto_total;
     this.metodo_de_pago = factura.metodo_de_pago;

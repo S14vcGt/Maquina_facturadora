@@ -2,6 +2,7 @@ import { Users } from "../models/Users";
 import { AppDataSource } from "../data-source";
 import { Request, Response } from "express";
 import { generateToken, clearToken } from "../helpers/auth.helper";
+import { AuthenticationError } from "../middleware/error.middleware";
 export class AuthController {
   static async login(req: Request, res: Response) {
     const user = await AppDataSource.getRepository(Users).findOne({
@@ -12,20 +13,14 @@ export class AuthController {
     });
     if (user) {
       generateToken(res, user.id);
-      const rol = user.caja
-        ? "caja"
-        : user.admin
-        ? "admin"
-        : user.superAdmin
-        ? "superAdmin"
-        : "";
+      const rol = user.esCaja ? "caja" : user.admin ? "admin" : "superAdmin";
       return res.status(201).json({
         id: user.id,
         numero: user.numero,
         rol: rol,
       });
     } else {
-      return res.status(401).json({ message: "Autenticacion Fallida" });
+      throw new AuthenticationError("Autenticacion Fallida");
     }
   }
 

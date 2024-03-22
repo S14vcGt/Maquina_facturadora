@@ -22,7 +22,7 @@ export class Users {
   _password: string;
 
   @Column({ type: Boolean })
-  caja: boolean;
+  esCaja: boolean;
 
   @Column({ type: Boolean })
   admin: boolean;
@@ -46,4 +46,6 @@ export class Users {
 
   @DeleteDateColumn()
   deletedAt: Date;
+
+  _name: string = "Users";
 }

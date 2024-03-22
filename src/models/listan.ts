@@ -15,4 +15,6 @@ export class listan {
 
   @ManyToOne(() => Productos, (producto) => producto.listan, { eager: true })
   public producto: Productos;
+
+  _name: string = "listan";
 }
