@@ -1,0 +1,9 @@
+FROM node:slim
+
+RUN mkdir -p /home/app
+
+WORKDIR /home/app
+
+EXPOSE 3000
+
+CMD [ "node_modules/ts-node-dev","src/index.ts" ]
