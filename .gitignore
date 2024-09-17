@@ -6,3 +6,5 @@ temp/
 dist/
 .lsp/
 .env
+desktop.ini
+factura.ico

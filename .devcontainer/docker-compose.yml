@@ -1,29 +1,22 @@
 version: "3.9"
 
 services:
-  app:
-    build: 
-      context: ./
-      dockerfile: Dockerfile.dev
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm
     volumes:
-      - .:/home/app
-    ports:
-      - "3000:3000"
-    links:
-      - postgres
-    depends_on:
-      - postgres
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    network_mode: service:postgres
   
   postgres:
     image: postgres
-    restart: always
+    restart: unless-stopped
     ports:
       - "5432:5432"
     environment:
       - DATABASE_HOST=127.0.0.1
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=maquina_facturadora
 
   pgadmin:
     image: dpage/pgadmin4
@@ -33,4 +26,6 @@ services:
     ports:
       - "80:80"
     depends_on:
+      - postgres
+    links:
       - postgres

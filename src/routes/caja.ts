@@ -6,7 +6,7 @@ const userRouter = Router();
 
 userRouter.post("/cliente", ClientesController.createCliente);
 userRouter.get("/cliente", ClientesController.searchCliente);
-//?aqui se usan querys
+
 userRouter.post("/factura", FacturasController.createFactura);
 userRouter.get("/factura", FacturasController.searchFactura);
 

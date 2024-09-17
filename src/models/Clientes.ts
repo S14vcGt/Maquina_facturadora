@@ -8,7 +8,6 @@ import {
   DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
-//import { audited } from "../helpers/audited.helper";
 
 @Entity()
 export class Clientes {
