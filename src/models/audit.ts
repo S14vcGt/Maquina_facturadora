@@ -9,7 +9,7 @@ import { Users } from "./Users";
 @Entity()
 export class audit {
   @PrimaryGeneratedColumn()
-  number: number;
+  id: number;
 
   @Column({ nullable: false })
   table: string;

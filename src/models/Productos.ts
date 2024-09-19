@@ -2,10 +2,7 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
   OneToMany,
-  DeleteDateColumn,
 } from "typeorm";
 import { listan } from "./listan";
 @Entity()
@@ -24,15 +21,6 @@ export class Productos {
 
   @OneToMany(() => listan, (listan) => listan.producto, { onUpdate: "CASCADE" })
   public listan: listan[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 
   _name: string = "Productos";
 }

@@ -2,11 +2,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn,
   Column,
   ManyToOne,
   OneToMany,
-  DeleteDateColumn,
   Generated,
 } from "typeorm";
 import { Clientes } from "./Clientes";
@@ -18,7 +16,7 @@ export class Facturas {
   id: string;
 
   @Column()
-  @Generated()
+  @Generated("increment")
   numero: number;
 
   @Column({ type: "float", nullable: false })
@@ -38,12 +36,6 @@ export class Facturas {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 
   _name: string = "Facturas";
 }

@@ -3,9 +3,6 @@ import {
   PrimaryGeneratedColumn,
   Column,
   OneToMany,
-  CreateDateColumn,
-  UpdateDateColumn,
-  DeleteDateColumn,
 } from "typeorm";
 import { Facturas } from "./Facturas";
 
@@ -33,15 +30,6 @@ export class Clientes {
     onUpdate: "CASCADE",
   })
   facturas: Facturas[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
-
-  @DeleteDateColumn()
-  deletedAt: Date;
 
   _name: string = "Clientes";
 }
