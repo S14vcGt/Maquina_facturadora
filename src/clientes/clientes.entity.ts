@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-//import { Facturas } from './Facturas';
+import { Factura } from 'src/facturas/entities/factura.entity';
 
 @Entity()
 export class Clientes {
@@ -7,7 +7,7 @@ export class Clientes {
   id: string;
 
   @Column({ unique: true, nullable: false })
-  cedula: number;
+  cedula: string;
 
   @Column('varchar', { nullable: false })
   nombre: string;
@@ -21,10 +21,10 @@ export class Clientes {
   @Column('varchar', { nullable: false })
   telefono: string;
 
-  /*@OneToMany(() => Facturas, (facturas) => facturas.cliente, {
+  @OneToMany(() => Factura, (factura) => factura.cliente, {
     onUpdate: 'CASCADE',
   })
-  facturas: Facturas[];
+  facturas: Factura[];
 
-  _name: string = 'Clientes';*/
+  _name: string = 'Clientes';
 }
