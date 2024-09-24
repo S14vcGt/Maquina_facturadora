@@ -1,5 +1,5 @@
+import { products_list } from 'src/facturas/entities/products_list.entity';
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-//import { listan } from './listan';
 @Entity()
 export class Producto {
   @PrimaryGeneratedColumn('uuid')
@@ -14,8 +14,10 @@ export class Producto {
   @Column('varchar', { nullable: false })
   nombre: string;
 
-  @OneToMany(() => listan, (listan) => listan.producto, { onUpdate: 'CASCADE' })
-  public listan: listan[];
+  @OneToMany(() => products_list, (list) => list.producto, {
+    onUpdate: 'CASCADE',
+  })
+  public products_list: products_list[];
 
   _name: string = 'Productos';
 }

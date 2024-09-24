@@ -1,11 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFacturaDto } from './dto/create-factura.dto';
 import { UpdateFacturaDto } from './dto/update-factura.dto';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { Factura } from './entities/factura.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class FacturasService {
-  create(createFacturaDto: CreateFacturaDto) {
-    return 'This action adds a new factura';
+  constructor(@InjectRepository(Factura)
+   private facturaRepository: Repository<Factura>){}
+
+  async create(createFacturaDto: CreateFacturaDto) {
+    const newFactura = this.facturaRepository.create(createFacturaDto)
+    return this.facturaRepository.save(newFactura)
   }
 
   findAll() {
@@ -20,7 +27,4 @@ export class FacturasService {
     return `This action updates a #${id} factura`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} factura`;
-  }
 }

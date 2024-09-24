@@ -1,3 +1,4 @@
+import { Clientes } from 'src/clientes/clientes.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,9 +8,8 @@ import {
   OneToMany,
   Generated,
 } from 'typeorm';
-import { Clientes } from './Clientes';
-import { Users } from './Users';
-import { listan } from './listan';
+import { products_list } from './products_list.entity';
+
 @Entity()
 export class Factura {
   @PrimaryGeneratedColumn('uuid')
@@ -28,14 +28,14 @@ export class Factura {
   @ManyToOne(() => Clientes, (cliente) => cliente.facturas, { eager: true })
   cliente: Clientes;
 
-  @ManyToOne(() => Users, (caja) => caja.facturas, { eager: true })
-  caja: Users;
+  @Column()
+  caja: number;
 
-  @OneToMany(() => listan, (listan) => listan.factura, { eager: true })
-  public listan: listan[];
+  @OneToMany(() => products_list, (list) => list.factura, { eager: true })
+  public products_list: products_list[];
 
   @CreateDateColumn()
-  createdAt: Date;
+  fecha: Date;
 
   _name: string = 'Facturas';
 }
