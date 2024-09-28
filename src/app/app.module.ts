@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import databaseConfig from './databaseConfig';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ClientesModule } from 'src/clientes/clientes.module';
+import { FacturasModule } from 'src/facturas/facturas.module';
+import { ProductosModule } from 'src/productos/productos.module';
 
 @Module({
   imports: [
@@ -17,14 +20,17 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       useFactory: (configService: ConfigService) =>
         configService.get('dbConfig'),
     }),
+    ClientesModule,
+    ProductosModule,
+    FacturasModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
+    /*{
       provide: APP_GUARD,
       useClass: AuthGuard,
-    },
+    },*/
   ],
 })
 export class AppModule {}
