@@ -38,7 +38,8 @@
         "eamodio.gitlens",
         "github.vscode-github-actions",
         "cweijan.vscode-database-client2",
-        "cweijan.dbclient-jdbc"
+        "cweijan.dbclient-jdbc",
+        "vue.volar"
       ]
     }
   }

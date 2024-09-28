@@ -1,0 +1,26 @@
+{
+  "name": "maquina_facturadora",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "maquina_facturadora/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "maquina_facturadora:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "maquina_facturadora:build:development"
+        },
+        "production": {
+          "buildTarget": "maquina_facturadora:build:production"
+        }
+      }
+    }
+  }
+}

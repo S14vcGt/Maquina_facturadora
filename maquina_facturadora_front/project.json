@@ -1,0 +1,8 @@
+{
+  "name": "maquina_facturadora_front",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "maquina_facturadora_front/src",
+  "// targets": "to see all targets run: nx show project maquina_facturadora_front --web",
+  "targets": {}
+}
