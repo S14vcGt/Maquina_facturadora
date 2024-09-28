@@ -8,3 +8,7 @@ dist/
 .env
 desktop.ini
 factura.ico
+
+
+.nx/cache
+.nx/workspace-data
