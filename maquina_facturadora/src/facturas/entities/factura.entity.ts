@@ -1,7 +1,7 @@
 import { Clientes } from '../../clientes/clientes.entity';
 import {
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   CreateDateColumn,
   Column,
   ManyToOne,
@@ -12,7 +12,7 @@ import { products_list } from './products_list.entity';
 
 @Entity()
 export class Factura {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryColumn('uuid')
   id: string;
 
   @Column()
