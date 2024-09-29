@@ -15,11 +15,11 @@
   },
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  "forwardPorts": [3000],
+  "forwardPorts": [3000,4200],
 
   // Use 'postCreateCommand' to run commands after the container is created.
   "postCreateCommand": "npm install",
-
+ 
   // Configure tool-specific properties.
   "customizations": {
     "vscode": {
@@ -39,7 +39,8 @@
         "github.vscode-github-actions",
         "cweijan.vscode-database-client2",
         "cweijan.dbclient-jdbc",
-        "vue.volar"
+        "vue.volar",
+        "nrwl.angular-console"
       ]
     }
   }

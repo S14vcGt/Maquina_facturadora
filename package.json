@@ -15,6 +15,7 @@
     "axios": "^1.6.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
+    "lucide-vue-next": "^0.446.0",
     "pg": "^8.13.0",
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.1.13",
