@@ -1,29 +1,14 @@
 <template>
-  <div class="flex items-center justify-center min-h-screen bg-gray-100">
-    <div class="relative w-full max-w-md">
-      <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-        <Search class="w-5 h-5 text-gray-400" />
-      </div>
-      <input
-        v-model="searchQuery"
-        type="search"
-        class="w-full py-3 pl-12 pr-4 text-gray-700 bg-gray-100 rounded-full outline-none focus:ring-2 focus:ring-blue-300 transition-shadow duration-300 ease-in-out
-               shadow-[inset_4px_4px_8px_rgba(0,0,0,0.1),inset_-4px_-4px_8px_rgba(255,255,255,0.9)]
-               hover:shadow-[inset_6px_6px_12px_rgba(0,0,0,0.1),inset_-6px_-6px_12px_rgba(255,255,255,0.9)]
-               focus:shadow-[inset_8px_8px_16px_rgba(0,0,0,0.1),inset_-8px_-8px_16px_rgba(255,255,255,0.9)]"
-        placeholder="Search..."
-        @input="handleSearch"
-      />
-    </div>
-    <div v-if="searchQuery" class="absolute mt-2 text-gray-600">
-      You searched for: {{ searchQuery }}
-    </div>
+  <div class="input-group">
+    <label>
+      <input type="text" placeholder="Cliente"/>
+    </label>
+    <button class="unit" type="button"  @click="handleSearch"><i class="icon ion-md-search"></i></button>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { Search } from 'lucide-vue-next'
 
 const searchQuery = ref('')
 
@@ -32,3 +17,116 @@ const handleSearch = () => {
   console.log('Searching for:', searchQuery.value)
 }
 </script>
+
+<style scoped>
+body, html {
+  background-color:#EBECF0;
+}
+
+body, p, input, select, textarea, button {
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: -0.2px;
+    font-size: 16px;
+}
+
+div, p {
+  color: #BABECC;
+  text-shadow: 1px 1px 1px #FFF;
+}
+
+
+form {
+  padding: 16px;
+  width: 16px*20;
+  margin: 0 auto;
+}
+
+.segment {
+  padding: 16px*2 0;
+  text-align: center;
+}
+
+button, input {
+  border: 0;
+  outline: 0;
+  font-size: 16px;
+  border-radius: 16px*20;
+  padding: 16px;
+  background-color:#EBECF0;
+  text-shadow: 1px 1px 0 #FFF;
+}
+
+label {
+  display: block;
+  margin-bottom: 16px*1.5;
+  width: 100%;
+}
+
+input {
+  margin-right: 16px/2;
+  box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #FFF;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+
+  &:focus {
+    box-shadow:  inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+  }
+}
+
+button {
+  color:#61677C;
+  font-weight: bold;
+  box-shadow: -5px -5px 20px #FFF,  5px 5px 20px #BABECC;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: 600;
+  
+  &:hover {
+    box-shadow: -2px -2px 5px #FFF, 2px 2px 5px #BABECC;
+  }
+  
+  &:active {
+    box-shadow: inset 1px 1px 2px #BABECC, inset -1px -1px 2px #FFF;
+  }
+  
+  .icon {
+    margin-right: 16px/2;
+  }
+  
+  &.unit {
+    border-radius: 16px/2;
+    line-height: 0;
+    width: 16px*3;
+    height: 16px*3;
+    display:inline-flex;
+    justify-content: center;
+    align-items:center;
+    margin: 0 16px/2;
+    font-size: 16px*1.2;
+    
+    .icon {
+      margin-right: 0; 
+    }
+  }
+  
+  &.red {
+    display: block;
+    width: 100%;
+    color:#AE1100;
+  }
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  
+  label {
+    margin: 0;
+    flex: 1;
+  }
+}
+</style>

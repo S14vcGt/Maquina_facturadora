@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import NxWelcome from './NxWelcome.vue';
+import startpage from './startpage.vue';
+import '../index.css';
 </script>
 
 <template>
-  <NxWelcome title="maquina_facturadora_front" />
+<startpage/>
 </template>
