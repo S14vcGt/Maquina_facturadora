@@ -23,12 +23,12 @@ export class ProductosController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProductoDto: UpdateProductoDto) {
-    return this.productosService.update(+id, updateProductoDto);
+  update(@Param('id', new ParseUUIDPipe()) id: string, @Body() updateProductoDto: UpdateProductoDto) {
+    return this.productosService.update(id, updateProductoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.productosService.remove(+id);
+  remove(@Param('id', new ParseUUIDPipe()) id: string) {
+    return this.productosService.remove(id);
   }
 }

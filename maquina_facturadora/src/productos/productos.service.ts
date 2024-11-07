@@ -17,26 +17,34 @@ export class ProductosService {
   }
 
   findAll() {
-    return `This action returns all productos`;
+    return this.productoRepository.find();
   }
 
   findOne(id: string) {
     return this.checkExistence(id);
   }
 
-  update(id: number, updateProductoDto: UpdateProductoDto) {
-    console.log(updateProductoDto);
-    return `This action updates a #${id} producto`;
+  async update(
+    id: string,
+    updateProductoDto: UpdateProductoDto
+  ): Promise<Producto> {
+    const existingProducto = await this.checkExistence(id);
+    const updatedProducto = this.productoRepository.merge(
+      existingProducto,
+      updateProductoDto
+    );
+    return this.productoRepository.save(updatedProducto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} producto`;
+  async remove(id: string): Promise<void> {
+    const product = await this.checkExistence(id);
+    this.productoRepository.remove(product);
   }
 
   async checkExistence(id: string): Promise<Producto> {
     const checkProducto = await this.productoRepository.findOneBy({ id });
     if (!checkProducto) {
-      throw new NotFoundException(`Producto no registrado`);
+      throw new NotFoundException(`Product not registrated`);
     }
     return checkProducto;
   }
