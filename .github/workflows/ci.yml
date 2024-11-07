@@ -24,7 +24,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --include=optional
-      - run: npx nx run back-emergency-control-verde:build
+      - run: npx nx run maquina_facturadora:build
 
   test_back:
     needs: [build_back]
@@ -35,7 +35,7 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --include=optional
-      - run: npx nx run back-emergency-control-verde:test
+      - run: npx nx run maquina_facturadora:test
   
   lint_back:
     needs: [test_back]
@@ -46,4 +46,4 @@ jobs:
         with:
           node-version: '22'
       - run: npm install --include=optional
-      - run: npx nx run back-emergency-control-verde:lint
+      - run: npx nx run maquina_facturadora:lint
