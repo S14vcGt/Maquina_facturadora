@@ -30,3 +30,14 @@ export const TESTING_PHONE_NUMBER_7 = '+1-555-789-0123';
 export const TESTING_PHONE_NUMBER_8 = '+1-555-890-1234';
 export const TESTING_PHONE_NUMBER_9 = '+1-555-901-2345';
 export const TESTING_PHONE_NUMBER_10 = '+1-555-012-3456';
+
+export const testing_barcode_1 = '123456789012';
+export const testing_barcode_2 = '987654321098';
+export const testing_barcode_3 = '001234567890';
+export const testing_barcode_4 = '321098765432';
+export const testing_barcode_5 = '456123789012';
+export const testing_barcode_6 = '890123456789';
+export const testing_barcode_7 = '567890123456';
+export const testing_barcode_8 = '789012345678';
+export const testing_barcode_9 = '234567890123';
+export const testing_barcode_10 = '654321098765';

@@ -1,7 +1,6 @@
-import { Controller, Get, Post, Body, Patch, Param, ParseUUIDPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseUUIDPipe } from '@nestjs/common';
 import { FacturasService } from './facturas.service';
 import { CreateFacturaDto } from './dto/create-factura.dto';
-import { UpdateFacturaDto } from './dto/update-factura.dto';
 
 @Controller('facturas')
 export class FacturasController {
@@ -20,11 +19,6 @@ export class FacturasController {
   @Get(':id')
   findOne(@Param('id', new ParseUUIDPipe() )id: string) {
     return this.facturasService.findOne(id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFacturaDto: UpdateFacturaDto) {
-    return this.facturasService.update(+id, updateFacturaDto);
   }
 
 }
