@@ -1,13 +1,13 @@
-export const TESTING_D81CC530_88F3_4021_BD55_B4DFCCFE08BD = 'd81cc530-88f3-4021-bd55-b4dfccfe08bd';
-export const TESTING_A5558296_1954_417A_B830_775A83075738 = 'a5558296-1954-417a-b830-775a83075738';
-export const TESTING_ADFA5E90_69CB_470A_B3C9_75C51F50AD80 = 'adfa5e90-69cb-470a-b3c9-75c51f50ad80';
-export const TESTING_7F235F1D_8CEB_4B6C_BA71_F51954AB111A = '7f235f1d-8ceb-4b6c-ba71-f51954ab111a';
-export const TESTING_3A267120_DDDF_40E2_A470_566DB9F31D8C = '3a267120-dddf-40e2-a470-566db9f31d8c';
-export const TESTING_83FA1F63_0CC9_4DEC_BBC0_EC0759553C37 = '83fa1f63-0cc9-4dec-bbc0-ec0759553c37';
-export const TESTING_37325653_4CC1_4524_A3B0_80BA338661D2 = '37325653-4cc1-4524-a3b0-80ba338661d2';
-export const TESTING_1242F8E1_074A_4FE5_8708_D6A830DC606D = '1242f8e1-074a-4fe5-8708-d6a830dc606d';
-export const TESTING_F835ABE7_C9C9_46A5_A7C9_5762B617088B = 'f835abe7-c9c9-46a5-a7c9-5762b617088b';
-export const TESTING_D17CEBA9_9CED_41FE_B6D5_564CED376758 = 'd17ceba9-9ced-41fe-b6d5-564ced376758';
+export const TestingUUID1 = 'd81cc530-88f3-4021-bd55-b4dfccfe08bd';
+export const TestingUUID2 = 'a5558296-1954-417a-b830-775a83075738';
+export const TestingUUID3 = 'adfa5e90-69cb-470a-b3c9-75c51f50ad80';
+export const TestingUUID4 = '7f235f1d-8ceb-4b6c-ba71-f51954ab111a';
+export const TestingUUID5 = '3a267120-dddf-40e2-a470-566db9f31d8c';
+export const TestingUUID6 = '83fa1f63-0cc9-4dec-bbc0-ec0759553c37';
+export const TestingUUID7 = '37325653-4cc1-4524-a3b0-80ba338661d2';
+export const TestingUUID8 = '1242f8e1-074a-4fe5-8708-d6a830dc606d';
+export const TestingUUID09 = 'f835abe7-c9c9-46a5-a7c9-5762b617088b';
+export const TestingUUID10 = 'd17ceba9-9ced-41fe-b6d5-564ced376758';
 
 export const TESTING_ADDRESS_1 = '123 Main Street, Springfield, IL 62704';
 export const TESTING_ADDRESS_2 = '456 Elm Street, Metropolis, NY 10001';
