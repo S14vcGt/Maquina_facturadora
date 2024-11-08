@@ -44,7 +44,7 @@ export class ProductosService {
   async checkExistence(id: string): Promise<Producto> {
     const checkProducto = await this.productoRepository.findOneBy({ id });
     if (!checkProducto) {
-      throw new NotFoundException(`Product not registrated`);
+      throw new NotFoundException(`Product not registered`);
     }
     return checkProducto;
   }
